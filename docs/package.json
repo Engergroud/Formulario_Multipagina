@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "description": "Proyecto de formulario con frontend y backend",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
