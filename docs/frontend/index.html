@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Multipágina</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="formulario.css">
+
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Registros</h1>
+        <button type="button" class="btn btn-primary mb-3" onclick="openModal('datosPersonalesModal')">
+            Agregar Nuevo Registro
+        </button>
+
+        
+    </div>
+    <div id="records-list"></div> 
+    <!-- Modales -->
+    <!-- Modal Datos Personales -->
+    <div class="modal fade" id="datosPersonalesModal" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="datosPersonalesModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="datosPersonalesModalLabel">Datos Personales</h5>
+                    <button type="button" class="close" data-dismiss="modal" onclick="Cerrar_Modal()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" class="form-control">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="nextModal('familiaresModal')">Siguiente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Familiares -->
+    <div class="modal fade" id="familiaresModal" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="familiaresModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                    <h5 class="modal-title" id="familiaresModalLabel">Familiares</h5>
+                    <button type="button" class="close" data-dismiss="modal" onclick="Cerrar_Modal()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div id="familiares-container">
+                        <label for="nombre-familiar">Nombre:</label>
+                        <input type="text" id="nombre-familiar" class="form-control">
+                        <label for="parentesco">Parentesco:</label>
+                        <input type="text" id="parentesco" class="form-control">
+                        <label for="edad">Edad:</label>
+                        <input type="number" id="edad" class="form-control">
+                        <button type="button" class="btn btn-secondary mt-2" onclick="addFamiliar()">Agregar Familiar</button>
+                    </div>
+                    <div id="familiares-list"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="previousModal('datosPersonalesModal')">Anterior</button>
+                    <button type="button" class="btn btn-primary" onclick="nextModal('condicionesModal')">Siguiente</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Condiciones Pre-Existentes -->
+    <div class="modal fade" id="condicionesModal" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="condicionesModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="condicionesModalLabel">Condiciones Pre-Existentes</h5>
+                    <button type="button" class="close" data-dismiss="modal" onclick="Cerrar_Modal()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="condiciones-container">
+                        <label for="enfermedad">Enfermedad:</label>
+                        <input type="text" id="enfermedad" class="form-control">
+                        <label for="tiempo">Tiempo con la Enfermedad:</label>
+                        <input type="text" id="tiempo" class="form-control">
+                        <button type="button" class="btn btn-secondary mt-2" onclick="addCondicion()">Agregar Condición</button>
+                    </div>
+                    <div id="condiciones-list"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="previousModal('familiaresModal')">Anterior</button>
+                    <button type="button" class="btn btn-primary" onclick="nextModal('internamientosModal')">Siguiente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Internamientos -->
+    <div class="modal fade" id="internamientosModal" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="internamientosModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="internamientosModalLabel">Internamientos Realizados</h5>
+                    <button type="button" class="close" data-dismiss="modal" onclick="Cerrar_Modal()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="internamientos-container">
+                        <label for="fecha">Fecha:</label>
+                        <input type="date" id="fecha" class="form-control">
+                        <label for="centro-medico">Centro Médico:</label>
+                        <input type="text" id="centro-medico" class="form-control">
+                        <label for="diagnostico">Diagnóstico:</label>
+                        <input type="text" id="diagnostico" class="form-control">
+                        <button type="button" class="btn btn-secondary mt-2" onclick="addInternamiento()">Agregar Internamiento</button>
+                    </div>
+                    <div id="internamientos-list"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="previousModal('condicionesModal')">Anterior</button>
+                    <button type="button" class="btn btn-primary" onclick="saveRecord()">Grabar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Registro -->
+    <div class="modal fade" id="editRecordModal" tabindex="-1" aria-labelledby="editRecordModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editRecordModalLabel">Editar Registro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="edit-record-content"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="updateRecord()">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Resumen General -->
+    <div class="modal fade" id="summaryModal" tabindex="-1" aria-labelledby="summaryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="summaryModalLabel">Resumen General</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="summary-content"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="formularios.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
